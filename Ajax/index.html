@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax Testing</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="#">
+        <input type="email" id="email" name="email" onkeyup="check_mail()" placeholder="Email" ><br>
+        <input type="submit" value="submit">
+    </form>
+    <p id="test2"></p>
+    <input type="text" id="uname" name="fname" placeholder="Usename" ><br>
+    <input type="password" id="pass" name="lname" placeholder="Password" ><br>
+    <p id="test"></p>
+    <button type="button" onclick="login()">Login</button><br><hr><br>
+
+    <h1>Ajax</h1>
+    <input type="text" id="fname" name="fname" placeholder="First Name" ><br>
+    <input type="text" id="lname" name="lname" placeholder="Last Name" ><br>
+    <p id="test">This test is going to change</p>
+    <button type="button" onclick="greeting()">Greet</button><br><hr><br>
+
+    <h1>Calc</h1>
+    <input type="number" id="fnum" name="fnum" placeholder="First Number" ><br>
+    <input type="number" id="lnum" name="lnum" placeholder="Last Number" ><br>
+    <select name="op" id="op">
+        <option value="add">Addition</option>
+        <option value="sub">Substraction</option>
+    </select>
+    <p id="out">Output is going to be here</p>
+    <button type="button" onclick="calc()">Perform Operation</button>
+
+    <script>
+        function loadDoc(url, x) {
+
+            var xh = new XMLHttpRequest();
+
+            xh.onreadystatechange = function() {
+              if(this.readyState == 4 && this.status == 200){
+                // cfunc(this);
+                x.innerHTML = xh.responseText; // this.responseText;
+              }  
+            };
+
+            xh.open("GET",url,true);
+            xh.send();
+        }
+
+        function check_mail() {
+            var em = document.getElementById("email").value;
+
+            var url = "email_check.php?email="+em;
+
+            var x = document.getElementById("test2");  // = xhttp.responseText;
+            loadDoc(url,x);
+
+        }
+
+        function login() {
+            var fn = document.getElementById("uname").value;
+            var ln = document.getElementById("pass").value;
+
+            var url = "user_check.php?uname="+fn+"&pass="+ln;
+
+            var x = document.getElementById("test");  // = xhttp.responseText;
+            loadDoc(url,x);
+
+        }
+
+        function greeting() {
+            var fn = document.getElementById("fname").value;
+            var ln = document.getElementById("lname").value;
+
+            var url = "greet.php?fname="+fn+"&lname="+ln;
+
+            var x = document.getElementById("test");  // = xhttp.responseText;
+            loadDoc(url,x);
+
+        }
+
+        function calc() {
+            var fn = document.getElementById("fnum").value;
+            var ln = document.getElementById("lnum").value;
+            var op = document.getElementById("op").value;
+
+            var url = "calc.php?op="+op+"&fnum="+fn+"&lnum="+ln;
+            // alert(url)   
+            
+            var x = document.getElementById("out");  // = xhttp.responseText;
+            loadDoc(url,x);
+
+        }
+
+        /*
+        var x = document.getElementById("test");
+            var fn = document.getElementById("fname").value;
+            var ln = document.getElementById("lname").value;
+            // x.innerHTML = "Text Changed";
+         */
+    </script>
+</body>
+</html>
